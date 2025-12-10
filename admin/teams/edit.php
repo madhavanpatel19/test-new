@@ -66,119 +66,100 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Error updating team: " . $e->getMessage();
     }
 }
+include __DIR__ . '/../header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
-    <title>Edit Team</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
-        h1 { color: #333; }
-        .container { max-width: 500px; margin: auto; padding: 20px; background-color: #fff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; }
-        input[type="text"], select { width: 100%; padding: 8px; box-sizing: border-box; }
-        .btn { padding: 10px 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer; }
-        .message { margin-top: 20px; padding: 10px; background-color: #e7f3fe; border-left: 6px solid #2196F3; }
-        .error { color: red; font-weight: bold; }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Edit Team</h1>
-        <?php if ($message): ?>
-            <div class="message"><?= $message ?></div>
-        <?php endif; ?>
-         <?php if ($error): ?>
-            <p class="error"><?= $error ?></p>
-        <?php endif; ?>
-        <?php if ($team): ?>
-        <form action="edit.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&team_id=<?= htmlspecialchars($teamId) ?>" method="POST">
-            <div class="form-group">
-                <label for="tournamentId">Tournament</label>
-                <select id="tournamentId" name="tournamentId" required>
-                    <option value="">Select a Tournament</option>
-                     <?php if (!empty($tournaments)): ?>
-                        <?php foreach ($tournaments as $id => $tournament): ?>
-                            <option value="<?= htmlspecialchars($id) ?>" <?= ($id === $tournamentId) ? 'selected' : '' ?>>
-                                <?= htmlspecialchars($tournament['name']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="groupId">Group</label>
-                <select id="groupId" name="groupId" required>
-                    <option value="">Select a Group</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="teamId">Team ID</label>
-                <input type="text" id="teamId" value="<?= htmlspecialchars($teamId) ?>" disabled>
-            </div>
-            <div class="form-group">
-                <label for="teamName">Team Name</label>
-                <input type="text" id="teamName" name="teamName" value="<?= htmlspecialchars($team['teamName'] ?? '') ?>" required>
-            </div>
-            <div class="form-group">
-                <label for="captainName">Captain Name</label>
-                <input type="text" id="captainName" name="captainName" value="<?= htmlspecialchars($team['captainName'] ?? '') ?>">
-            </div>
-            <div class="form-group">
-                <label for="captainNumber">Captain Number</label>
-                <input type="text" id="captainNumber" name="captainNumber" value="<?= htmlspecialchars($team['captainNumber'] ?? '') ?>">
-            </div>
-            <div class="form-group">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city" value="<?= htmlspecialchars($team['city'] ?? '') ?>">
-            </div>
-             <div class="form-group">
-                <label for="groupName">Group Name</label>
-                <input type="text" id="groupName" name="groupName" value="<?= htmlspecialchars($team['groupName'] ?? '') ?>">
-            </div>
-            <button type="submit" class="btn">Update Team</button>
-        </form>
-        <?php else: ?>
-        <p>Team not found.</p>
-        <?php endif; ?>
-        <br>
-        <a href="index.php">Back to Teams List</a>
+
+<h1>Edit Team</h1>
+<?php if ($message): ?>
+    <p><?= $message ?></p>
+<?php endif; ?>
+ <?php if ($error): ?>
+    <p class="error"><?= $error ?></p>
+<?php endif; ?>
+<?php if ($team): ?>
+<form action="edit.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&team_id=<?= htmlspecialchars($teamId) ?>" method="POST">
+    <div>
+        <label for="tournamentId">Tournament</label>
+        <select id="tournamentId" name="tournamentId" required>
+            <option value="">Select a Tournament</option>
+             <?php if (!empty($tournaments)): ?>
+                <?php foreach ($tournaments as $id => $tournament): ?>
+                    <option value="<?= htmlspecialchars($id) ?>" <?= ($id === $tournamentId) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($tournament['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </select>
     </div>
+    <div>
+        <label for="groupId">Group</label>
+        <select id="groupId" name="groupId" required>
+            <option value="">Select a Group</option>
+        </select>
+    </div>
+    <div>
+        <label for="teamId">Team ID</label>
+        <input type="text" id="teamId" value="<?= htmlspecialchars($teamId) ?>" disabled>
+    </div>
+    <div>
+        <label for="teamName">Team Name</label>
+        <input type="text" id="teamName" name="teamName" value="<?= htmlspecialchars($team['teamName'] ?? '') ?>" required>
+    </div>
+    <div>
+        <label for="captainName">Captain Name</label>
+        <input type="text" id="captainName" name="captainName" value="<?= htmlspecialchars($team['captainName'] ?? '') ?>">
+    </div>
+    <div>
+        <label for="captainNumber">Captain Number</label>
+        <input type="text" id="captainNumber" name="captainNumber" value="<?= htmlspecialchars($team['captainNumber'] ?? '') ?>">
+    </div>
+    <div>
+        <label for="city">City</label>
+        <input type="text" id="city" name="city" value="<?= htmlspecialchars($team['city'] ?? '') ?>">
+    </div>
+    <div>
+        <label for="groupName">Group Name</label>
+        <input type="text" id="groupName" name="groupName" value="<?= htmlspecialchars($team['groupName'] ?? '') ?>">
+    </div>
+    <button type="submit">Update Team</button>
+</form>
+<?php else: ?>
+<p>Team not found.</p>
+<?php endif; ?>
+<br>
+<a href="index.php">Back to Teams List</a>
 
-    <script>
-        const groupsData = <?= json_encode($all_groups ?? []) ?>;
-        const tournamentSelect = document.getElementById('tournamentId');
-        const groupSelect = document.getElementById('groupId');
-        const currentGroupId = '<?= $team['groupId'] ?? '' ?>';
+<script>
+    const groupsData = <?= json_encode($all_groups ?? []) ?>;
+    const tournamentSelect = document.getElementById('tournamentId');
+    const groupSelect = document.getElementById('groupId');
+    const currentGroupId = '<?= $team['groupId'] ?? '' ?>';
 
-        function populateGroups() {
-            const selectedTournamentId = tournamentSelect.value;
-            // Clear existing options
-            groupSelect.innerHTML = '<option value="">Select a Group</option>';
+    function populateGroups() {
+        const selectedTournamentId = tournamentSelect.value;
+        // Clear existing options
+        groupSelect.innerHTML = '<option value="">Select a Group</option>';
 
-            if (selectedTournamentId && groupsData[selectedTournamentId]) {
-                const groups = groupsData[selectedTournamentId];
-                for (const groupId in groups) {
-                    if (groups.hasOwnProperty(groupId)) {
-                        const option = document.createElement('option');
-                        option.value = groupId;
-                        option.textContent = groups[groupId].groupName;
-                        if (groupId === currentGroupId) {
-                            option.selected = true;
-                        }
-                        groupSelect.appendChild(option);
+        if (selectedTournamentId && groupsData[selectedTournamentId]) {
+            const groups = groupsData[selectedTournamentId];
+            for (const groupId in groups) {
+                if (groups.hasOwnProperty(groupId)) {
+                    const option = document.createElement('option');
+                    option.value = groupId;
+                    option.textContent = groups[groupId].groupName;
+                    if (groupId === currentGroupId) {
+                        option.selected = true;
                     }
+                    groupSelect.appendChild(option);
                 }
             }
         }
+    }
 
-        // Initial population
-        populateGroups();
+    // Initial population
+    populateGroups();
 
-        tournamentSelect.addEventListener('change', populateGroups);
-    </script>
-</body>
-</html>
+    tournamentSelect.addEventListener('change', populateGroups);
+</script>
+
+<?php include __DIR__ . '/../footer.php'; ?>
