@@ -824,7 +824,7 @@
             },
             "time": "2025-02-19T21:53:22+00:00",
             "type": "library",
-            "installation-source": "source",
+            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "Grpc\\Gcp\\": "src/"

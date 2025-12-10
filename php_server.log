@@ -1,0 +1,20 @@
+[Wed Dec 10 15:34:18 2025] PHP 8.3.6 Development Server (http://localhost:8000) started
+[Wed Dec 10 15:34:30 2025] [::1]:51512 Accepted
+[Wed Dec 10 15:34:30 2025] PHP Warning:  require(/app/vendor/composer/../ralouphie/getallheaders/src/getallheaders.php): Failed to open stream: No such file or directory in /app/vendor/composer/autoload_real.php on line 41
+[Wed Dec 10 15:34:30 2025] PHP Fatal error:  Uncaught Error: Failed opening required '/app/vendor/composer/../ralouphie/getallheaders/src/getallheaders.php' (include_path='.:/usr/share/php') in /app/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /app/vendor/composer/autoload_real.php(45): {closure}()
+#1 /app/vendor/autoload.php(22): ComposerAutoloaderInit705392bd4be3a83d71d3fcf494d36055::getLoader()
+#2 /app/admin/firebase_init.php(3): require('...')
+#3 /app/admin/teams/create.php(2): require('...')
+#4 {main}
+  thrown in /app/vendor/composer/autoload_real.php on line 41
+[Wed Dec 10 15:34:30 2025] [::1]:51512 [500]: GET /admin/teams/create.php - Uncaught Error: Failed opening required '/app/vendor/composer/../ralouphie/getallheaders/src/getallheaders.php' (include_path='.:/usr/share/php') in /app/vendor/composer/autoload_real.php:41
+Stack trace:
+#0 /app/vendor/composer/autoload_real.php(45): {closure}()
+#1 /app/vendor/autoload.php(22): ComposerAutoloaderInit705392bd4be3a83d71d3fcf494d36055::getLoader()
+#2 /app/admin/firebase_init.php(3): require('...')
+#3 /app/admin/teams/create.php(2): require('...')
+#4 {main}
+  thrown in /app/vendor/composer/autoload_real.php on line 41
+[Wed Dec 10 15:34:30 2025] [::1]:51512 Closing
