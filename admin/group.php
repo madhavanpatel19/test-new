@@ -6,8 +6,11 @@ $groups_data = [];
 $error = null;
 try {
     $reference = $database->getReference('groups');
+    $tournaments_reference = $database->getReference('tournaments');
     $snapshot = $reference->getSnapshot();
+    $tournaments_snapshot = $tournaments_reference->getSnapshot();
     $groups_data = $snapshot->getValue();
+    $tournaments = $tournaments_snapshot->getValue();
 } catch (Exception $e) {
     $error = "Error fetching groups: " . $e->getMessage();
 }
@@ -26,7 +29,7 @@ include __DIR__ . '/header.php';
     <table>
         <thead>
             <tr>
-                <th>Tournament ID</th>
+                <th>Tournament Name</th>
                 <th>Group ID</th>
                 <th>Group Name</th>
                 <th>Created At</th>
@@ -36,8 +39,13 @@ include __DIR__ . '/header.php';
         <tbody>
             <?php foreach ($groups_data as $tournamentId => $groups): ?>
                 <?php foreach ($groups as $groupId => $groupData): ?>
+                    <?php
+                        // Look up tournament details by tournament id
+                        $tournamentData = $tournaments[$tournamentId ?? 'N/A'] ?? [];
+                        $tournamentName = $tournamentData['name'] ?? 'N/A';
+                    ?>
                 <tr>
-                    <td><?= htmlspecialchars($tournamentId) ?></td>
+                    <td><?= htmlspecialchars($tournamentName) ?></td>
                     <td><?= htmlspecialchars($groupId) ?></td>
                     <td><?= htmlspecialchars($groupData['groupName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($groupData['createdAt'] ?? 'N/A') ?></td>

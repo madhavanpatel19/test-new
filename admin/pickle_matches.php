@@ -6,8 +6,11 @@ $matches = [];
 $error = null;
 try {
     $reference = $database->getReference('pickle_matches');
+    $tournaments_reference = $database->getReference('tournaments');
     $snapshot = $reference->getSnapshot();
+    $tournaments_snapshot = $tournaments_reference->getSnapshot();
     $matches = $snapshot->getValue();
+    $tournaments = $tournaments_snapshot->getValue();   
 } catch (Exception $e) {
     $error = "Error fetching pickle matches: " . $e->getMessage();
 }
@@ -26,23 +29,32 @@ include __DIR__ . '/header.php';
     <table>
         <thead>
             <tr>
-                <th>Match ID</th>
-                <th>Tournament ID</th>
+                <!-- <th>Match ID</th> -->
+                <th>Tournament Name</th>
                 <th>Creator Name</th>
                 <th>Match Type</th>
                 <th>Schedule Date</th>
+                <th>win team</th>
                 <th>Status</th>
                 <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
             <?php foreach ($matches as $matchId => $matchData): ?>
+                <?php
+                    // Look up tournament details by tournament id
+                    $tournamentData = $tournaments[$matchData['tournamentId'] ?? 'N/A'] ?? [];
+                    $tournamentName = $tournamentData['name'] ?? 'N/A';
+
+                    
+                ?>              
                 <tr>
-                    <td><?= htmlspecialchars($matchId) ?></td>
-                    <td><?= htmlspecialchars($matchData['tournamentId'] ?? 'N/A') ?></td>
+                    <!-- <td><?= htmlspecialchars($matchId) ?></td> -->
+                    <td><?= htmlspecialchars($tournamentName) ?></td>
                     <td><?= htmlspecialchars($matchData['name'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($matchData['matchType'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($matchData['schedule_date'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($matchData['winTeam'] ?? 'N/A') ?></td>
                     <td><?= ($matchData['matchStatus']['matchCompleted'] ?? false) ? 'Completed' : 'Pending' ?></td>
                     <!-- <td>
                         <a href="edit.php?id=<?= htmlspecialchars($matchId) ?>">Edit</a>

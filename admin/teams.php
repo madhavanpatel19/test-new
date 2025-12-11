@@ -6,8 +6,11 @@ $teams_data = [];
 $error = null;
 try {
     $reference = $database->getReference('teams');
+    $tournaments_reference = $database->getReference('tournaments');
     $snapshot = $reference->getSnapshot();
+    $tournaments_snapshot = $tournaments_reference->getSnapshot();
     $teams_data = $snapshot->getValue();
+    $tournaments = $tournaments_snapshot->getValue();
 } catch (Exception $e) {
     $error = "Error fetching teams: " . $e->getMessage();
 }
@@ -26,9 +29,10 @@ include __DIR__ . '/header.php';
     <table>
         <thead>
             <tr>
-                <th>Tournament ID</th>
+                <!-- <th>Tournament ID</th> -->
+                <th>Tournament Name</th>
                 <th>Team ID</th>
-                <th>Team Name</th>
+                <th>Team name</th>
                 <th>Captain Name</th>
                 <th>Captain Number</th>
                 <th>City</th>
@@ -39,10 +43,16 @@ include __DIR__ . '/header.php';
         <tbody>
             <?php foreach ($teams_data as $tournamentId => $teams): ?>
                 <?php foreach ($teams as $teamId => $teamData): ?>
+                    <?php
+                        // Look up tournament details by tournament id
+                        $tournamentData = $tournaments[$tournamentId] ?? [];
+                        $tournamentName = $tournamentData['name'] ?? 'N/A';
+                    ?>
                 <tr>
-                    <td><?= htmlspecialchars($tournamentId) ?></td>
+                    <!-- <td><?= htmlspecialchars($tournamentId) ?></td> -->
+                    <td><?= htmlspecialchars($tournamentName) ?></td>
                     <td><?= htmlspecialchars($teamId) ?></td>
-                    <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>    
                     <td><?= htmlspecialchars($teamData['captainName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['captainNumber'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['city'] ?? 'N/A') ?></td>

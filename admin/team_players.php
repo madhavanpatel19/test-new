@@ -6,10 +6,18 @@ $team_players_data = [];
 $error = null;
 try {
     $reference = $database->getReference('team_players');
+    $teams_reference = $database->getReference('teams');
+    $tournaments_reference = $database->getReference('tournaments');
     $snapshot = $reference->getSnapshot();
+    $teams_snapshot = $teams_reference->getSnapshot();
+    $tournaments_snapshot = $tournaments_reference->getSnapshot();
     $team_players_data = $snapshot->getValue();
+    $teams_data = $teams_snapshot->getValue();
+    $tournaments = $tournaments_snapshot->getValue();
 } catch (Exception $e) {
     $error = "Error fetching team players: " . $e->getMessage();
+} catch (Exception $e) {
+    $error = "Error fetching tournaments: " . $e->getMessage();
 }
 
 include __DIR__ . '/header.php';
@@ -26,8 +34,9 @@ include __DIR__ . '/header.php';
     <table>
         <thead>
             <tr>
-                <th>Tournament ID</th>
-                <th>Team ID</th>
+                <th>Tournament Name</th>
+                <!-- <th>Team ID</th> -->
+                <th>Team name</th>
                 <th>Player Mobile</th>
                 <th>Joined At</th>
                 <!-- <th>Actions</th> -->
@@ -36,10 +45,18 @@ include __DIR__ . '/header.php';
         <tbody>
             <?php foreach ($team_players_data as $tournamentId => $teams): ?>
                 <?php foreach ($teams as $teamId => $players): ?>
+                    <?php
+                        // Look up team details by tournament/team id
+                        $teamData = $teams_data[$tournamentId][$teamId] ?? [];
+                        $teamName = $teamData['teamName'] ?? 'N/A';
+                        $tournamentData = $tournaments[$tournamentId ?? 'N/A'] ?? [];
+                        $tournamentName = $tournamentData['name'] ?? 'N/A';
+                    ?>
                     <?php foreach ($players as $playerMobile => $playerData): ?>
                     <tr>
-                        <td><?= htmlspecialchars($tournamentId) ?></td>
-                        <td><?= htmlspecialchars($teamId) ?></td>
+                        <!-- <td><?= htmlspecialchars($teamId) ?></td> -->
+                        <td><?= htmlspecialchars($tournamentName) ?></td>
+                        <td><?= htmlspecialchars($teamName) ?></td>
                         <td><?= htmlspecialchars($playerMobile) ?></td>
                         <td><?= htmlspecialchars(date('Y-m-d H:i:s', $playerData['joinedAt'])) ?></td>
                         <!-- <td>

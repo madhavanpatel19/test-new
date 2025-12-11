@@ -9,7 +9,7 @@
 <body>
     <header class="header">
         <div class="navbar-brand">
-            <a href="/pickelball8dots-test/view_users.php">Pickleball-8dots</a>
+            <a href="/pickelball8dots-test/view_users.php">Pickleball</a>
         </div>
         <nav>
             <ul class="nav-links">
