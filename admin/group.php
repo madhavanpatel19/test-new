@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../firebase_init.php';
+require __DIR__ . '/firebase_init.php';
 
 // Fetch groups
 $groups_data = [];
@@ -12,11 +12,11 @@ try {
     $error = "Error fetching groups: " . $e->getMessage();
 }
 
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<h1>Manage Groups</h1>
-<a href="create.php" class="button">Add New Group</a>
+<h1>Groups</h1>
+<!-- <a href="create.php" class="button">Add New Group</a> -->
 
 <?php if ($error): ?>
     <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -30,7 +30,7 @@ include __DIR__ . '/../header.php';
                 <th>Group ID</th>
                 <th>Group Name</th>
                 <th>Created At</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -41,10 +41,10 @@ include __DIR__ . '/../header.php';
                     <td><?= htmlspecialchars($groupId) ?></td>
                     <td><?= htmlspecialchars($groupData['groupName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($groupData['createdAt'] ?? 'N/A') ?></td>
-                    <td>
+                    <!-- <td>
                         <a href="edit.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&group_id=<?= htmlspecialchars($groupId) ?>">Edit</a>
                         <a href="delete.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&group_id=<?= htmlspecialchars($groupId) ?>" onclick="return confirm('Are you sure you want to delete this group?');">Delete</a>
-                    </td>
+                    </td> -->
                 </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
@@ -52,4 +52,4 @@ include __DIR__ . '/../header.php';
     </table>
 <?php endif; ?>
 
-<?php include __DIR__ . '/../footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

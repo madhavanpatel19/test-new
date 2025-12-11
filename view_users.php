@@ -27,7 +27,7 @@ try {
 include 'admin/header.php';
 ?>
 
-<h1>Pickleball 8 Dots Users</h1>
+<h1>Pickleball Users</h1>
 
 <?php
 try {

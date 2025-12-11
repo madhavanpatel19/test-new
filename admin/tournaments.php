@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../firebase_init.php';
+require __DIR__ . '/firebase_init.php';
 
 // Fetch tournaments
 $tournaments = [];
@@ -12,11 +12,11 @@ try {
     $error = "Error fetching tournaments: " . $e->getMessage();
 }
 
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<h1>Manage Tournaments</h1>
-<a href="create.php" class="button">Add New Tournament</a>
+<h1>Tournaments</h1>
+<!-- <a href="create.php" class="button">Add New Tournament</a> -->
 
 <?php if ($error): ?>
     <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -32,7 +32,7 @@ include __DIR__ . '/../header.php';
                 <th>Start Date</th>
                 <th>End Date</th>
                 <th>Organizer</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -44,14 +44,14 @@ include __DIR__ . '/../header.php';
                     <td><?= htmlspecialchars($tournamentData['startDate'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($tournamentData['endDate'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($tournamentData['organizerName'] ?? 'N/A') ?></td>
-                    <td>
+                    <!-- <td>
                         <a href="edit.php?id=<?= htmlspecialchars($tournamentId) ?>">Edit</a>
                         <a href="delete.php?id=<?= htmlspecialchars($tournamentId) ?>" onclick="return confirm('Are you sure you want to delete this tournament?');">Delete</a>
-                    </td>
+                    </td> -->
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
 
-<?php include __DIR__ . '/../footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../firebase_init.php';
+require __DIR__ . '/firebase_init.php';
 
 // Fetch pickle matches
 $matches = [];
@@ -12,11 +12,11 @@ try {
     $error = "Error fetching pickle matches: " . $e->getMessage();
 }
 
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<h1>Manage Pickle Matches</h1>
-<a href="create.php" class="button">Add New Match</a>
+<h1>Pickle Matches</h1>
+<!-- <a href="create.php" class="button">Add New Match</a> -->
 
 <?php if ($error): ?>
     <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -32,7 +32,7 @@ include __DIR__ . '/../header.php';
                 <th>Match Type</th>
                 <th>Schedule Date</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -44,14 +44,14 @@ include __DIR__ . '/../header.php';
                     <td><?= htmlspecialchars($matchData['matchType'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($matchData['schedule_date'] ?? 'N/A') ?></td>
                     <td><?= ($matchData['matchStatus']['matchCompleted'] ?? false) ? 'Completed' : 'Pending' ?></td>
-                    <td>
+                    <!-- <td>
                         <a href="edit.php?id=<?= htmlspecialchars($matchId) ?>">Edit</a>
                         <a href="delete.php?id=<?= htmlspecialchars($matchId) ?>" onclick="return confirm('Are you sure you want to delete this match?');">Delete</a>
-                    </td>
+                    </td> -->
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
 
-<?php include __DIR__ . '/../footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>

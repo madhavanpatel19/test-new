@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../firebase_init.php';
+require __DIR__ . '/firebase_init.php';
 
 // Fetch users
 $users = [];
@@ -12,11 +12,11 @@ try {
     $error = "Error fetching users: " . $e->getMessage();
 }
 
-include __DIR__ . '/../header.php';
+include __DIR__ . '/header.php';
 ?>
 
-<h1>Manage Users</h1>
-<a href="create.php" class="button">Add New User</a>
+<h1>Users</h1>
+<!-- <a href="create.php" class="button">Add New User</a> -->
 
 <?php if ($error): ?>
     <p class="error"><?= htmlspecialchars($error) ?></p>
@@ -34,7 +34,7 @@ include __DIR__ . '/../header.php';
                 <th>Playing Hand</th>
                 <th>Photo URL</th>
                 <th>Updated At</th>
-                <th>Actions</th>
+                <!-- <th>Actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -54,14 +54,14 @@ include __DIR__ . '/../header.php';
                         <?php endif; ?>
                     </td>
                     <td><?= htmlspecialchars($userData['updatedAt'] ?? 'N/A') ?></td>
-                    <td>
+                    <!-- <td>
                         <a href="edit.php?id=<?= htmlspecialchars($mobileNumber) ?>">Edit</a>
                         <a href="delete.php?id=<?= htmlspecialchars($mobileNumber) ?>" onclick="return confirm('Are you sure you want to delete this user?');">Delete</a>
-                    </td>
+                    </td> -->
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
 
-<?php include __DIR__ . '/../footer.php'; ?>
+<?php include __DIR__ . '/footer.php'; ?>
