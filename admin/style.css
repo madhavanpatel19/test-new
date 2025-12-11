@@ -27,18 +27,21 @@ h1, h2, h3 {
 h1 {
     text-align: center;
     font-size: 2.5rem;
+    margin-top: -10px;
 }
 
 /* Links */
 a {
     color: #007bff;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease;  
+    text-decoration: none;
+
+
 }
 
 a:hover {
     color: #0056b3;
-    text-decoration: underline;
 }
 
 /* Tables */

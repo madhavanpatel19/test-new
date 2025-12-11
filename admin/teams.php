@@ -30,9 +30,10 @@ include __DIR__ . '/header.php';
                 <th>Team ID</th>
                 <th>Team Name</th>
                 <th>Captain Name</th>
+                <th>Captain Number</th>
                 <th>City</th>
                 <th>Group Name</th>
-                <!-- <th>Actions</th> -->
+
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,7 @@ include __DIR__ . '/header.php';
                     <td><?= htmlspecialchars($teamId) ?></td>
                     <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['captainName'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($teamData['captainNumber'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['city'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['groupName'] ?? 'N/A') ?></td>
                     <!-- <td>

@@ -26,8 +26,8 @@ include __DIR__ . '/header.php';
     <table>
         <thead>
             <tr>
-                <th>Mobile Number</th>
                 <th>Name</th>
+                <th>Mobile Number</th>
                 <th>City</th>
                 <th>DOB</th>
                 <th>Gender</th>
@@ -40,8 +40,8 @@ include __DIR__ . '/header.php';
         <tbody>
             <?php foreach ($users as $mobileNumber => $userData): ?>
                 <tr>
-                    <td><?= htmlspecialchars($mobileNumber) ?></td>
                     <td><?= htmlspecialchars($userData['name'] ?? 'N/A') ?></td>
+                    <td><?= htmlspecialchars($mobileNumber) ?></td>
                     <td><?= htmlspecialchars($userData['city'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($userData['dob'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($userData['gender'] ?? 'N/A') ?></td>
