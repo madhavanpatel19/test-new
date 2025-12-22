@@ -67,6 +67,58 @@ tr:nth-child(even) {
     background-color: #f8f9fa;
 }
 
+/* Player Table */
+.player-table {
+    margin-top: 2rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.player-table th,
+.player-table td {
+    border-top: none;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.player-table th {
+    background-color: #e9ecef;
+    color: #495057;
+    font-weight: 600;
+}
+
+.player-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Nested Player Table */
+.nested-table-container {
+    padding: 1rem;
+    background-color: #f8f9fa;
+}
+
+.nested-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.nested-table th,
+.nested-table td {
+    border: 1px solid #dee2e6;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.nested-table th {
+    background-color: #e9ecef;
+    font-weight: 600;
+}
+
 /* Forms */
 form {
     margin-top: 2rem;

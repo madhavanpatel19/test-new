@@ -1,18 +1,24 @@
 <?php
 require __DIR__ . '/firebase_init.php';
 
-// Fetch teams
+// Fetch all necessary data
 $teams_data = [];
+$tournaments_data = [];
+$team_players_data = [];
+$users_data = [];
 $error = null;
 try {
-    $reference = $database->getReference('teams');
-    $tournaments_reference = $database->getReference('tournaments');
-    $snapshot = $reference->getSnapshot();
-    $tournaments_snapshot = $tournaments_reference->getSnapshot();
-    $teams_data = $snapshot->getValue();
-    $tournaments = $tournaments_snapshot->getValue();
+    $teams_ref = $database->getReference('teams');
+    $tournaments_ref = $database->getReference('tournaments');
+    $team_players_ref = $database->getReference('team_players');
+    $users_ref = $database->getReference('users');
+
+    $teams_data = $teams_ref->getSnapshot()->getValue();
+    $tournaments_data = $tournaments_ref->getSnapshot()->getValue();
+    $team_players_data = $team_players_ref->getSnapshot()->getValue();
+    $users_data = $users_ref->getSnapshot()->getValue();
 } catch (Exception $e) {
-    $error = "Error fetching teams: " . $e->getMessage();
+    $error = "Error fetching data: " . $e->getMessage();
 }
 
 include __DIR__ . '/header.php';
@@ -45,23 +51,50 @@ include __DIR__ . '/header.php';
                 <?php foreach ($teams as $teamId => $teamData): ?>
                     <?php
                         // Look up tournament details by tournament id
-                        $tournamentData = $tournaments[$tournamentId] ?? [];
+                        $tournamentData = $tournaments_data[$tournamentId] ?? [];
                         $tournamentName = $tournamentData['name'] ?? 'N/A';
                     ?>
-                <tr>
-                    <!-- <td><?= htmlspecialchars($tournamentId) ?></td> -->
-                    <td><?= htmlspecialchars($tournamentName) ?></td>
-                    <!-- <td><?= htmlspecialchars($teamId) ?></td> -->
-                    <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>    
-                    <td><?= htmlspecialchars($teamData['captainName'] ?? 'N/A') ?></td>
-                    <td><?= htmlspecialchars($teamData['captainNumber'] ?? 'N/A') ?></td>
-                    <td><?= htmlspecialchars($teamData['city'] ?? 'N/A') ?></td>
-                    <td><?= htmlspecialchars($teamData['groupName'] ?? 'N/A') ?></td>
-                    <!-- <td>
-                        <a href="edit.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&team_id=<?= htmlspecialchars($teamId) ?>">Edit</a>
-                        <a href="delete.php?tournament_id=<?= htmlspecialchars($tournamentId) ?>&team_id=<?= htmlspecialchars($teamId) ?>" onclick="return confirm('Are you sure you want to delete this team?');">Delete</a>
-                    </td> -->
-                </tr>
+                    <tr>
+                        <td><?= htmlspecialchars($tournamentName) ?></td>
+                        <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($teamData['captainName'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($teamData['captainNumber'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($teamData['city'] ?? 'N/A') ?></td>
+                        <td><?= htmlspecialchars($teamData['groupName'] ?? 'N/A') ?></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6">
+                            <div class="nested-table-container">
+                                <?php
+                                $players = $team_players_data[$tournamentId][$teamId] ?? [];
+                                if (!empty($players)):
+                                ?>
+                                <table class="nested-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Player Name</th>
+                                            <th>Player Number</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($players as $playerMobile => $playerData): ?>
+                                            <?php
+                                            $userDetails = $users_data[$playerMobile] ?? null;
+                                            $playerName = $userDetails['name'] ?? 'N/A';
+                                            ?>
+                                            <tr>
+                                                <td><?= htmlspecialchars($playerName) ?></td>
+                                                <td><?= htmlspecialchars($playerMobile) ?></td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                                <?php else: ?>
+                                <p>No players in this team.</p>
+                                <?php endif; ?>
+                            </div>
+                        </td>
+                    </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
         </tbody>
