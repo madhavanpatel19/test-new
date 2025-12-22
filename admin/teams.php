@@ -31,7 +31,7 @@ include __DIR__ . '/header.php';
             <tr>
                 <!-- <th>Tournament ID</th> -->
                 <th>Tournament Name</th>
-                <th>Team ID</th>
+                <!-- <th>Team ID</th> -->
                 <th>Team name</th>
                 <th>Captain Name</th>
                 <th>Captain Number</th>
@@ -51,7 +51,7 @@ include __DIR__ . '/header.php';
                 <tr>
                     <!-- <td><?= htmlspecialchars($tournamentId) ?></td> -->
                     <td><?= htmlspecialchars($tournamentName) ?></td>
-                    <td><?= htmlspecialchars($teamId) ?></td>
+                    <!-- <td><?= htmlspecialchars($teamId) ?></td> -->
                     <td><?= htmlspecialchars($teamData['teamName'] ?? 'N/A') ?></td>    
                     <td><?= htmlspecialchars($teamData['captainName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($teamData['captainNumber'] ?? 'N/A') ?></td>

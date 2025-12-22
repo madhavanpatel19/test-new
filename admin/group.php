@@ -30,7 +30,7 @@ include __DIR__ . '/header.php';
         <thead>
             <tr>
                 <th>Tournament Name</th>
-                <th>Group ID</th>
+                <!-- <th>Group ID</th> -->
                 <th>Group Name</th>
                 <th>Created At</th>
                 <!-- <th>Actions</th> -->
@@ -46,7 +46,7 @@ include __DIR__ . '/header.php';
                     ?>
                 <tr>
                     <td><?= htmlspecialchars($tournamentName) ?></td>
-                    <td><?= htmlspecialchars($groupId) ?></td>
+                    <!-- <td><?= htmlspecialchars($groupId) ?></td> -->
                     <td><?= htmlspecialchars($groupData['groupName'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($groupData['createdAt'] ?? 'N/A') ?></td>
                     <!-- <td>
