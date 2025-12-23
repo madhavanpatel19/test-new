@@ -7,10 +7,13 @@ $error = null;
 try {
     $reference = $database->getReference('pickle_matches');
     $tournaments_reference = $database->getReference('tournaments');
+    $teams_reference = $database->getReference('teams');
     $snapshot = $reference->getSnapshot();
     $tournaments_snapshot = $tournaments_reference->getSnapshot();
+    $teams_snapshot = $teams_reference->getSnapshot();
     $matches = $snapshot->getValue();
     $tournaments = $tournaments_snapshot->getValue();   
+    $teams = $teams_snapshot->getValue();
 } catch (Exception $e) {
     $error = "Error fetching pickle matches: " . $e->getMessage();
 }
@@ -54,7 +57,12 @@ include __DIR__ . '/header.php';
                     <td><?= htmlspecialchars($matchData['name'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($matchData['matchType'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($matchData['schedule_date'] ?? 'N/A') ?></td>
-                    <td><?= htmlspecialchars($matchData['winTeam'] ?? 'N/A') ?></td>
+                    <?php
+                        // Look up team details by team id
+                        $winTeamData = $teams[$matchData['tournamentId']][$matchData['winTeam']] ?? [];
+                        $winTeamName = $winTeamData['teamName'] ?? 'N/A';
+                    ?>
+                    <td><?= htmlspecialchars($winTeamName) ?></td>
                     <td><?= ($matchData['matchStatus']['matchCompleted'] ?? false) ? 'Completed' : 'Pending' ?></td>
                     <!-- <td>
                         <a href="edit.php?id=<?= htmlspecialchars($matchId) ?>">Edit</a>
